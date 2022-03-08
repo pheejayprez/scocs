@@ -1,0 +1,229 @@
+
+#container {
+	margin: 0 auto;
+}
+
+
+nav1 {
+	background-color: #FFFFFF;
+}
+
+nav1 ul {
+	padding: 0;
+  	margin: 0;
+	list-style: none;
+	position: relative;
+	}
+	
+nav1 ul li {
+	display:inline-block;
+	text-decoration:none;
+	}
+
+nav1 a {
+	display:block;
+	padding:0 10px;	
+	color:black;
+	font-size:20px;
+	line-height: 60px;
+	text-decoration:none;
+}
+
+nav1 a:hover { 
+	background-color: #FFFFFF; 
+	
+}
+
+/* Hide Dropdowns by Default */
+nav1 ul ul {
+	display: none;
+	position: absolute; 
+	top: 50px; /* the height of the main nav1 */
+	background-color: #FFFFFF;
+	text-decoration:none;
+}
+	
+/* Display Dropdowns on Hover */
+nav1 ul li:hover > ul {
+	display:inherit;
+		background-color: #FFFFFF;
+		text-decoration:none;
+		
+}
+	
+/* Fisrt Tier Dropdown */
+nav1 ul ul li {
+	width:170px;
+	float:none;
+	display:list-item;
+	position: relative;
+	text-decoration:none;
+}
+
+/* Second, Third and more Tiers	*/
+nav1 ul ul ul li {
+	position: relative;
+	top:-60px; 
+	left:170px;
+	text-decoration:none;
+}
+
+	
+/* Change this in order to change the Dropdown symbol */
+li > a:after { content:  ' ▼'; }
+li > a:only-child:after { content: ''; }
+
+
+
+.tagline{
+	font-family: century gothic;
+	font-size: 20px;
+	font-weight: bold;
+	color: #00000099;
+	padding-bottom: 20px;
+	
+}
+@keyframes tagline {
+  0% {
+    opacity: 0;
+    transform: scale(.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% { transform: scale(.9); }
+  100% { transform: scale(1); }
+}
+.homep-btn{
+	font-size: 12px;
+	font-family: century gothic;
+	letter-spacing: 3px;
+	color: white;
+	text-shadow: 0px ;
+	padding:10px;
+	width:300px;
+	height:100px;
+	box-shadow:0 0 20px #eee;
+	border-radius:25px;
+	margin-bottom:20px;
+	background-color:#fa5c0254;
+	animation: tagline 2s ease infinite;
+}
+.homep-btn:hover{
+	
+	text-decoration: none;
+	color: #50594a;
+}
+
+/* The animation code */
+@keyframes home-logo {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* The element to apply the animation to */
+.home-logo {
+animation: home-logo 10s ease infinite;
+width:48%;
+}
+.home-subtitle{
+	font-family:Brush Script MT;
+	font-size:30px;
+	color:#fbad5d;
+	transition: font-size 1s, transform 1s;
+}
+.home-subtitle:hover{
+	font-size:40px;
+}
+
+
+.h-bg{
+	background: url('css/contact.png') 50% 0 repeat-y fixed;
+	border-radius: 25px;
+	padding:20px;
+	margin:5px;
+}
+.chef-area{
+	width: 90%;
+	margin:auto;
+	padding:20px;
+	transition: width 1s, transform 1s;
+}
+.chef-area:hover{
+	width: 85%;
+}
+.subtitle{
+	font-size:15px;
+	font-family: Century Gothic;
+	font-weight: bold;
+	color: black;
+	margin:auto;
+}
+.footText{
+	font-size:15px;
+	font-family:Century Gothic;
+}
+.cat-slider{
+	height:35px; 
+	vertical-align:middle;	 
+	width: 100%;   
+	min-width: 50px; 
+	padding:10px; 
+	background-color: red; 
+	color: yellow;
+}
+.about_desc {
+	font-size:20px;
+	font-family:Century Gothic;
+	margin: auto;
+	color: black;
+	padding-top:50px;
+}
+.about_desc2 {
+	font-size:12px;
+	margin: auto;
+	padding-bottom:50px;
+}
+.cartbtn{
+	width:250px; 
+	height:60px;
+	background:linear-gradient(to bottom right, #ff8b50, #de6a2f);
+	border-radius: 20px;
+}
+.search{
+	padding-top:20px;
+}
+
+
+.search_design{
+	font-family: century gothic;
+	font-weight: bold;
+	float:left;
+	padding: 5px 10px;
+	transition:0.5s;
+	color:#00000099;
+	border:0px;
+	width:219px;
+	box-shadow:0 0 5px #9f9696;
+	margin-top:15px;
+	margin-left:10px;
+	border-radius:30px;
+	display:block;
+	background: #ffecc76e;
+	text-decoration:none;
+}
+.search_btn{
+	color:black;
+	float:left;
+	font-size:15px;
+	padding: 20px 5px;
+	background:transparent;
+	border:0;
+}

@@ -1,0 +1,242 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: Century Gothic;
+    box-sizing: border-box;
+}
+
+body {
+    place-items: center;
+    height: 100vh;
+}
+
+.circle {
+    height: 500px;
+    width: 500px;
+    border-radius: 50%;
+    position: absolute;
+    top: 10%;
+    left: 22%;
+    background: radial-gradient(#ffffffca, #2745b0 70%);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+    z-index: 996;
+}
+
+.circle2 {
+    background: radial-gradient(#ffffffca, #5d001f 70%);
+    top: 50%;
+    left: 50%;
+}
+
+#container {
+    height: 670px;
+    width: 500px;
+    position: relative;
+    padding: 30px;
+    border-radius: 30px;
+    background: linear-gradient(30deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.4));
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-right: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: 999;
+    backdrop-filter: blur(20px);
+}
+
+/* header */
+#header {
+    height: 130px;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.5));
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#header a {
+    height: 130px;
+    width: 90px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-items: center;
+    text-decoration: none;
+    color: #e6336f;
+    font-size: 20px;
+}
+
+/* profile */
+#header #profileImage {
+    height: 60px;
+    width: 60px;
+    border: 2px solid #e6336f;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    left: 90px;
+}
+
+#header #profileImage img {
+    width: 100%;
+}
+
+/* details */
+#header #userDetail {
+    position: absolute;
+    left: 160px;
+}
+
+/* name */
+#header #userDetail #name {
+    font-size: 22px;
+    font-weight: 500;
+    margin: 0 0 5px 0;
+    color: #bd003f;
+}
+
+#mainSection {
+    height: 340px;
+    width: 100%;
+    top: 130px;
+    left: 0;
+    overflow-y: auto;
+	background: #f1c7b414;
+    padding: 30px;
+	border-radius: 10px 10px 0px 0px;
+}
+#mainSection #errors{
+    font-size: 15px;
+    padding-top:35px;
+	text-align: center;
+    font-family: century gothic;
+}
+
+#mainSection .request {
+    min-height: 50px;
+    max-width: 75%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    border-radius: 10px;
+    margin: 10px 0;
+}
+
+#mainSection .request .name,
+#mainSection .response .name {
+	
+    font-size: 12px;
+    color: #fa5d01;
+}
+
+#mainSection .request .name {
+	font-size: 12px;
+    color: #85a392;
+}
+
+#mainSection .request .messages {
+    font-size: 12px;
+}
+
+#mainSection .responseCard {
+    min-height: 50px;
+    width: 100%;
+    margin: 5px;
+    display: flex;
+    justify-content: flex-end;
+	font-size: 12px;
+}
+
+#mainSection .responseCard .response {
+    min-width: 50px;
+    max-width: 75%;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 5px;
+    border-radius: 10px;
+	font-size: 12px;
+}
+
+/* messages input field */
+#messagingTypingSection {
+    height: 65px;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    align-items: center;
+	padding-top: 10px;
+	background: #f0f5f9;
+	border-radius: 0px 0px 10px 10px;
+}
+
+#messagingTypingSection #typingField {
+    height: 40px;
+    width: 70%;
+    border: none;
+    outline: none;
+    background: #0000000f;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    margin-left: 10px;
+    padding-left: 20px;
+    font-size: 15x;
+    border-radius: 20px;
+    color: black;
+    text-shadow: 1px 1px 1px #fff;
+	font-family: Century gothic;
+    left: 30px;
+	text-align:left;
+}
+
+#messagingTypingSection #typingField::placeholder {
+    color: black;
+	text-align:left;
+}
+
+#messagingTypingSection #sendMessage {
+	font-family: Century gothic;
+    height: 40px;
+    width: 20%;
+    border: none;
+    outline: none;
+    color: #fff;
+    background: #f3a343;
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+	float: right;
+}
+
+/* customizing scroll bar */
+#mainSection::-webkit-scrollbar {
+    background: #f0f5f9;
+	 width: 5px;
+	 height: 10px;
+}
+
+#mainSection::-webkit-scrollbar-track {
+   
+}
+
+#mainSection::-webkit-scrollbar-thumb {
+    height: 10px;
+    background: #151718d1;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 30px;
+}
+#messagingTypingSection .setId
+{
+    display: none;
+}
