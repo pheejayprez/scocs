@@ -99,7 +99,7 @@ if(isset($_GET['action']) && $_GET['action']=="add"){
       <div class="col-md-offset-2 col-md-8 col-sm-12 text-center wow fadeInUp" data-wow-delay="0.6s">
         
         <br>
-		<p class="home-subtitle">About Sugarcoat Creations</p>
+		<p class="home-subtitle">ABOUT Sugarcoat Creations</p>
 		<hr style="width:300px;">
       </div>
 	  
