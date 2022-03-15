@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include_once 'include/config.php';
+include_once '../include/config.php';
 if(strlen($_SESSION['alogin'])==0)
   { 
 header('location:index.php');
