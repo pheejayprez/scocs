@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-include('../include/config.php');
+include('include/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -61,22 +61,7 @@ $_SESSION['msg']="Product Inserted Successfully !!";
     <link rel="stylesheet" href="app-light.css" id="lightTheme">
     <link rel="stylesheet" href="app-dark.css" id="darkTheme" disabled>
 	
-	   <script>
-		function getSubcat(val) {
-			$.ajax({
-			type: "POST",
-			url: "get_subcat.php",
-			data:'cat_id='+val,
-			success: function(data){
-				$("#subcategory").html(data);
-			}
-			});
-		}
-		function selectCountry(val) {
-		$("#search-box").val(val);
-		$("#suggesstion-box").hide();
-		}
-		</script>	
+	  
 
   </head>
   <body class="vertical  light  ">
@@ -109,7 +94,7 @@ $_SESSION['msg']="Product Inserted Successfully !!";
 
 											<div class="col-md-offset-3 col-md-6">
 												<label for="example-select">Category</label>
-												<select class="form-control" name="category" onChange="getSubcat(this.value);"  required>
+												<select class="form-control" name="category"  required>
 													<option value="">Select Category</option> 
 														<?php $query=mysqli_query($con,"select * from category");
 														while($row=mysqli_fetch_array($query))
@@ -122,7 +107,7 @@ $_SESSION['msg']="Product Inserted Successfully !!";
 											
 											<div class="col-md-offset-3 col-md-6">
 												<label for="example-select">Sub Category</label>
-												<select class="form-control" name="subcategory" onChange="getSubcat(this.value);"  required>
+												<select class="form-control" name="subcategory"   required>
 													<option value="">Select Sub Category</option> 
 														<?php $query=mysqli_query($con,"select * from subcategory");
 														while($row=mysqli_fetch_array($query))

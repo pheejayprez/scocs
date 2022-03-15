@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2022 at 03:10 PM
+-- Generation Time: Mar 14, 2022 at 03:15 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -47,7 +47,7 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`id`, `username`, `password`, `firstname`, `middlename`, `lastname`, `email`, `gcash_name`, `gcash_number`, `QRimage`, `creationDate`, `updationDate`) VALUES
-(1, 'admin', '0b9e46051c3be316cd8a9146ac053c95', 'Jayson', '', 'Atienza', 'scocs@gmail.com', 'Jayson Atienza', 9392799250, 'GcashQR.png', '2022-01-24 16:21:18', '06-03-2022 09:07:09 PM');
+(1, 'admin', '0b9e46051c3be316cd8a9146ac053c95', 'Jayson', '', 'Atienza', 'scocs@gmail.com', 'Jayson Atienza', 9392799250, 'GcashQR.png', '2022-01-24 16:21:18', '12-03-2022 12:58:34 PM');
 
 -- --------------------------------------------------------
 
@@ -98,6 +98,7 @@ CREATE TABLE `orders` (
   `quantity` int(11) DEFAULT NULL,
   `orderDate` timestamp NOT NULL DEFAULT current_timestamp(),
   `paymentMethod` varchar(50) DEFAULT NULL,
+  `payment_receipt` varchar(255) DEFAULT NULL,
   `orderStatus` varchar(55) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -105,10 +106,12 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `userId`, `productId`, `quantity`, `orderDate`, `paymentMethod`, `orderStatus`) VALUES
-(1, 2, '8', 1, '2022-03-06 07:34:01', 'Gcash E-wallet', 'Delivered'),
-(2, 5, '5', 1, '2022-03-06 09:51:44', NULL, NULL),
-(3, 5, '5', 1, '2022-03-06 11:09:50', NULL, NULL);
+INSERT INTO `orders` (`id`, `userId`, `productId`, `quantity`, `orderDate`, `paymentMethod`, `payment_receipt`, `orderStatus`) VALUES
+(1, 2, '2', 1, '2022-03-12 06:36:08', 'Cash On Pickup', NULL, NULL),
+(2, 2, '6', 1, '2022-03-12 06:36:42', 'Gcash E-wallet', 'sample-receipt.jpg', NULL),
+(3, 2, '2', 1, '2022-03-12 07:08:41', 'Gcash E-wallet', 'sample-receipt.jpg', 'Delivered'),
+(4, 2, '2', 1, '2022-03-12 09:06:17', 'Gcash E-wallet', 'sample-receipt.jpg', NULL),
+(5, 2, '6', 1, '2022-03-12 09:06:17', 'Gcash E-wallet', 'sample-receipt.jpg', NULL);
 
 -- --------------------------------------------------------
 
@@ -129,8 +132,8 @@ CREATE TABLE `ordertrackhistory` (
 --
 
 INSERT INTO `ordertrackhistory` (`id`, `orderId`, `status`, `remark`, `postingDate`) VALUES
-(1, 1, 'in Process', 'Please wait a minute', '2022-03-06 07:38:34'),
-(2, 1, 'Delivered', 'Thank You for ordering.', '2022-03-06 07:39:03');
+(1, 3, 'in Process', 'Please wait a moment...', '2022-03-12 07:53:36'),
+(2, 3, 'Delivered', 'Thank You for ordering', '2022-03-12 07:55:39');
 
 -- --------------------------------------------------------
 
@@ -141,14 +144,19 @@ INSERT INTO `ordertrackhistory` (`id`, `orderId`, `status`, `remark`, `postingDa
 CREATE TABLE `productreviews` (
   `id` int(11) NOT NULL,
   `productId` int(11) DEFAULT NULL,
-  `quality` int(11) DEFAULT NULL,
-  `price` int(11) DEFAULT NULL,
-  `value` int(11) DEFAULT NULL,
+  `order_id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `summary` varchar(255) DEFAULT NULL,
   `review` longtext DEFAULT NULL,
-  `reviewDate` timestamp NOT NULL DEFAULT current_timestamp()
+  `reviewDate` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updationDate` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `productreviews`
+--
+
+INSERT INTO `productreviews` (`id`, `productId`, `order_id`, `name`, `review`, `reviewDate`, `updationDate`) VALUES
+(1, 2, 3, 'Chad Villaluna', 'try2', '2022-03-14 14:08:21', '14-03-2022 10:10:31 PM');
 
 -- --------------------------------------------------------
 
@@ -245,7 +253,13 @@ INSERT INTO `userlog` (`id`, `userEmail`, `userip`, `loginTime`, `logout`, `stat
 (2, 'sheila@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-06 07:44:09', NULL, 1),
 (3, 'sheila@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-06 09:26:35', NULL, 1),
 (4, 'sheila@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-06 09:39:56', NULL, 0),
-(5, 'sheila@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-06 09:40:06', NULL, 1);
+(5, 'sheila@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-06 09:40:06', NULL, 1),
+(6, 'chad@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-07 05:07:48', NULL, 1),
+(7, 'chad@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-07 11:17:52', NULL, 1),
+(8, 'chad@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-07 12:31:48', NULL, 1),
+(9, 'chad@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-08 00:53:00', NULL, 1),
+(10, 'chad@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-12 04:44:29', NULL, 1),
+(11, 'chad@gmail.com', 0x3a3a3100000000000000000000000000, '2022-03-14 13:17:51', '14-03-2022 07:43:06 PM', 1);
 
 -- --------------------------------------------------------
 
@@ -367,7 +381,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `ordertrackhistory`
@@ -379,7 +393,7 @@ ALTER TABLE `ordertrackhistory`
 -- AUTO_INCREMENT for table `productreviews`
 --
 ALTER TABLE `productreviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -397,7 +411,7 @@ ALTER TABLE `subcategory`
 -- AUTO_INCREMENT for table `userlog`
 --
 ALTER TABLE `userlog`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,14 +1,14 @@
 
 <?php
 session_start();
-include('../include/config.php');
+include('include/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
 }
 else{
 
-date_default_timezone_set('Asia/Kolkata');// change according timezone
+date_default_timezone_set('Asia/Manila');// change according timezone
 $currentTime = date( 'd-m-Y h:i:s A', time () );
 
 
@@ -31,22 +31,14 @@ $currentTime = date( 'd-m-Y h:i:s A', time () );
     <link rel="stylesheet" href="css/feather.css">
     <!-- Date Range Picker CSS -->
     <link rel="stylesheet" href="css/daterangepicker.css">
+		
+	<link rel="stylesheet" href="css/lightbox.css" >
+	
     <!-- App CSS -->
     <link rel="stylesheet" href="app-light.css" id="lightTheme">
     <link rel="stylesheet" href="app-dark.css" id="darkTheme" disabled>
 	
-		<script language="javascript" type="text/javascript">
-var popUpWin=0;
-function popUpWindow(URLStr, left, top, width, height)
-{
- if(popUpWin)
-{
-if(!popUpWin.closed) popUpWin.close();
-}
-popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+600+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
-}
 
-</script>
 	
   </head>
   <body class="vertical  light  ">
@@ -90,6 +82,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 							<th>Qty </th>
 							<th>Amount </th>
 							<th>Order Date</th>
+							<th>Payment</th>
 							<th>Action</th>
                           </tr>
                         </thead>
@@ -97,7 +90,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 						
 						<?php 
 $status='Delivered';
-$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingStreet as shippingstreet,users.shippingBarangay as shippingbarangay,users.shippingCity as shippingcity,users.shippingProvince as shippingprovince,users.shippingZipcode as shippingzipcode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.	orderStatus!='$status' or orders.orderStatus is null");
+$query=mysqli_query($con,"select users.name as username,users.email as useremail,users.contactno as usercontact,users.shippingStreet as shippingstreet,users.shippingBarangay as shippingbarangay,users.shippingCity as shippingcity,users.shippingProvince as shippingprovince,users.shippingZipcode as shippingzipcode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id, orders.paymentMethod as paym, orders.payment_receipt as payr  from orders join users on  orders.userId=users.id join products on products.id=orders.productId where orders.	orderStatus!='$status' or orders.orderStatus is null");
 $cnt=1;
 while($row=mysqli_fetch_array($query))
 {
@@ -112,7 +105,11 @@ while($row=mysqli_fetch_array($query))
 											<td><?php echo htmlentities($row['quantity']);?></td>
 											<td><?php echo htmlentities($row['quantity']*$row['productprice']+$row['shippingcharge']);?></td>
 											<td><?php echo htmlentities($row['orderdate']);?></td>
-											
+											<td><?php echo htmlentities($row['paym']);?> <br>
+													<a class="entry-thumbnail" data-lightbox="image-1" href="../paymentreceipts/<?php if ( $row['payr'] == NULL and $row['paym']=="Cash On Pickup"){echo "COP.jpg";}else if ($row['payr'] == NULL){echo "no receipt.jpg";} else {echo $row['payr'];}?>">
+						    <img src="../paymentreceipts/<?php if ( $row['payr'] == NULL and $row['paym']=="Cash On Pickup"){echo "COP.jpg";}else if ($row['payr'] == NULL){echo "no receipt.jpg";} else {echo $row['payr'];}?>"  alt="receipt" width="80" height="40">
+						</a>
+											</td>
 											<td>   <a href="updateorder.php?oid=<?php echo htmlentities($row['id']);?>" title="Update order"><i class="icon-edit"></i></a>
 											</td>
 											

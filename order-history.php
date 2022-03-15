@@ -41,18 +41,7 @@ else{
 		<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		<link rel="shortcut icon" href="admin/assets/avatars/head-logo.png">
-	<script language="javascript" type="text/javascript">
-var popUpWin=0;
-function popUpWindow(URLStr, left, top, width, height)
-{
- if(popUpWin)
-{
-if(!popUpWin.closed) popUpWin.close();
-}
-popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,resizable=no,copyhistory=yes,width='+600+',height='+600+',left='+left+', top='+top+',screenX='+left+',screenY='+top+'');
-}
-
-</script>
+	
 
 	</head>
     <body class="cnt-home">
@@ -96,6 +85,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 					<th class="cart-sub-total item">Shipping Charge</th>
 					<th class="cart-total item">Grandtotal</th>
 					<th class="cart-total item">Payment Method</th>
+					<th class="cart-total item">Receipt</th>
 					<th class="cart-description item">Order Date</th>
 					<th class="cart-total last-item">Action</th>
 				</tr>
@@ -103,8 +93,11 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 			
 			<tbody>
 
-<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.orderDate as odate,orders.id as orderid from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null");
+<?php $query=mysqli_query($con,"select products.productImage1 as pimg1,products.productName as pname,products.id as proid,orders.productId as opid,orders.quantity as qty,products.productPrice as pprice,products.shippingCharge as shippingcharge,orders.paymentMethod as paym,orders.payment_receipt as payreceipt,orders.orderDate as odate,orders.id as orderid, orders.orderStatus as orderStat from orders join products on orders.productId=products.id where orders.userId='".$_SESSION['id']."' and orders.paymentMethod is not null ");
 $cnt=1;
+$num=mysqli_num_rows($query);
+if($num>0)
+{
 while($row=mysqli_fetch_array($query))
 {
 ?>
@@ -128,14 +121,51 @@ while($row=mysqli_fetch_array($query))
 					<td class="cart-product-sub-total"><?php echo $shippcharge=$row['shippingcharge']; ?>  </td>
 					<td class="cart-product-grand-total"><?php echo (($qty*$price)+$shippcharge);?></td>
 					<td class="cart-product-sub-total"><?php echo $row['paym']; ?>  </td>
+					
+					<td class="cart-image">
+						<a class="entry-thumbnail" data-lightbox="image-1" href="paymentreceipts/<?php if ( $row['payreceipt'] == NULL and $row['paym']=="Cash On Pickup"){echo "COP.jpg";}else if ($row['payreceipt'] == NULL){echo "no receipt.jpg";} else {echo $row['payreceipt'];}?>">
+						    <img src="paymentreceipts/<?php if ( $row['payreceipt'] == NULL and $row['paym']=="Cash On Pickup"){echo "COP.jpg";}else if ($row['payreceipt'] == NULL){echo "no receipt.jpg";} else {echo $row['payreceipt'];}?>"  alt="N/A" width="80" height="40">
+						</a>
+					</td>
 					<td class="cart-product-sub-total"><?php echo $row['odate']; ?>  </td>
 					
 					<td>
- <a href="track-order.php?oid=<?php echo htmlentities($row['orderid']);?>');" >
-					Track</td>
+ <a href="track-order.php?oid=<?php echo htmlentities($row['orderid']);?>" >
+					Track </a>
+				 <?php 
+				 $os="Delivered";
+				 $checkreview= ($row['orderid']);
+				 if ( $row['orderStat'] == $os){
+				
+
+?>
+				 <br>
+				 <?php
+				 	 $query2=mysqli_query($con,"select productreviews.order_id as roID from productreviews join orders on productreviews.order_id=orders.id where  productreviews.order_id='$checkreview' ");
+
+					$row2=mysqli_fetch_array($query2);
+					$withreview= ($row2['roID']);
+					if ($withreview == $checkreview){?>
+						<a href="view-review.php?oid=<?php echo htmlentities($row['orderid']);?>" style="color:#f39626">
+					Review </a>
+						
+					<?php }
+					else {?>
+						<a href="insert-review.php?oid=<?php echo htmlentities($row['orderid']);?>" style="color:#f39626">
+					To Review </a>
+						
+					<?php }	?>
+				 
+				 <?php  }?>
+					</td>
+					
 				</tr>
 <?php $cnt=$cnt+1;} ?>
-				
+				<?php } else {?>
+				<tr>
+<td colspan="10" align="center"><h4>No Order History</h4></td>
+</tr>
+<?php } ?>
 			</tbody><!-- /tbody -->
 		</table><!-- /table -->
 		
@@ -165,24 +195,7 @@ while($row=mysqli_fetch_array($query))
     <script src="assets/js/wow.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
 
-	<!-- For demo purposes – can be removed on production -->
-	
-	<script src="switchstylesheet/switchstylesheet.js"></script>
-	
-	<script>
-		$(document).ready(function(){ 
-			$(".changecolor").switchstylesheet( { seperator:"color"} );
-			$('.show-theme-options').click(function(){
-				$(this).parent().toggleClass('open');
-				return false;
-			});
-		});
 
-		$(window).bind("load", function() {
-		   $('.show-theme-options').delay(2000).trigger('click');
-		});
-	</script>
-	<!-- For demo purposes – can be removed on production : End -->
 </body>
 </html>
 <?php } ?>

@@ -1,6 +1,6 @@
 <?php
 // include config file
-include_once("../include/config.php");
+include_once("config.php");
 session_start();
 
 // if "login" button clicked

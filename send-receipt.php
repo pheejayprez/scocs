@@ -7,25 +7,16 @@ if(strlen($_SESSION['login'])==0)
 header('location:login.php');
 }
 else{
-	if (isset($_POST['submit'])) {
-
-		$myradio=($_POST['paymethod']);
-		
-		if($myradio === "Gcash E-wallet")
-		{
-			mysqli_query($con,"update orders set 	paymentMethod='".$_POST['paymethod']."' where userId='".$_SESSION['id']."' and paymentMethod is null ");
-		unset($_SESSION['cart']);
-		header('location:pending-receipt.php');
-		}
-		else if($myradio === "Cash On Pickup")
-		{
-		mysqli_query($con,"update orders set 	paymentMethod='".$_POST['paymethod']."' where userId='".$_SESSION['id']."' and paymentMethod is null ");
-		unset($_SESSION['cart']);
-		header('location:order-history.php');
-		}
+if(isset($_POST['submit']))
+{
+	$productimage1=$_FILES["productimage1"]["name"];
 
 
-	}
+	move_uploaded_file($_FILES["productimage1"]["tmp_name"],"paymentreceipts/".$_FILES["productimage1"]["name"]);
+	$sql=mysqli_query($con,"update  orders set payment_receipt='$productimage1' where userId='".$_SESSION['id']."' and payment_receipt is null ");
+	header('location:order-history.php');
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,64 +72,76 @@ else{
 	<div class="container">
 		<div class="checkout-box faq-page inner-bottom-sm">
 			<div class="row">
+		
+				
 				<div class="col-md-offset-2 col-md-8">
-					
-					<div class="panel-group checkout-steps" id="accordion">
-						<!-- checkout-step-01  -->
-<div class="panel panel-default checkout-step-01">
-
-	<!-- panel-heading -->
-		<div class="panel-heading">
-    	<h4 class="unicase-checkout-title">
-	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-	         Select your Payment Method
-	        </a>
-	     </h4>
-    </div>
-    <!-- panel-heading -->
-
-	<div id="collapseOne" class="panel-collapse collapse in">
-
-		<!-- panel-body  -->
-		<form name="payment" method="post">
-	    <table class="table">
-	    
-		<tr>
-		<td class="col-md-6"><input type="radio" name="paymethod" value="Cash On Pickup" class="col-md-offset-1 col-md-3"> Cash On Pickup (COP)</td>
-	     <td class="col-md-6"><input type="radio" name="paymethod" value="Gcash E-wallet"  class="col-md-offset-1 col-md-3"> Gcash Transfer </td>
-	     
-			</tr>
-
-	    	
+					<!-- checkout-progress-sidebar -->
+				
+<div>
 	
-		</table>
-		
-	</div><!-- row -->
-	
-	
-	<div class="col-md-12">
-	<br>
-			<center>
-		<input type="submit" value="Place Order" name="submit" class="btn btn-primary ">
-		</center>
-		<br>
-		</div>
-		
-		</form>
-		
-		
-	
-</div>
-<!-- checkout-step-01  -->
+		<div class="panel panel-default">
+			<h4 style="text-align:center">Sugarcoat Creations Gcash Info</h4>
+		    <div class="panel-body">
+				<?php
+$query=mysqli_query($con,"select * from admin where id=1 ");
+while($row=mysqli_fetch_array($query))
+{
+?>
 
+						<div class="col-md-9">
+						<div class="form-group">
+					    <label class="info-title" for="name">Account Name</label>
+					    <input type="text" class="form-control unicase-form-control text-input" value="<?php echo $row['gcash_name'];?>" readonly>
+					  </div>
 
+					  <div class="form-group">
+					    <label class="info-title" for="Contact No.">Account Number</label>
+					    <input type="text" class="form-control unicase-form-control text-input" value="<?php echo $row['gcash_number'];?>"  readonly>
+					  </div>
+					  </div>
 					  
-					  	
-					</div><!-- /.checkout-steps -->
-				</div>
-				
+					  <div class="col-md-3">
+					  <div class="wow fadeInUp" data-wow-delay="0.3s"> <a href="admin/QRimages/<?php echo $row['QRimage'];?>" data-lightbox="image-1"><img src="admin/QRimages/<?php echo $row['QRimage'];?>" alt="gallery img" style="width:100%"></a>
+    
+     
+					</div>
+					  </div>
+					  
+					<?php } ?>	
+			</div>
 		
+	</div>
+</div> 
+<!-- checkout-progress-sidebar -->				
+</div>
+
+                
+
+			<form name="insertproduct" method="post" enctype="multipart/form-data">
+
+						<div class="card-body">
+
+
+
+									<div class="form-group mb-3">
+										<label class="control-label" for="basicinput">New Product Image1</label>
+											<div class="custom-file">
+											<input type="file" name="productimage1" id="productimage1" value="" class="span8 tip" required>
+											</div>
+									</div>
+
+
+							
+
+									<div class="form-group mb-3">
+										<div class="controls">
+										<button type="submit" name="submit" class="btn mb-2 btn-primary">Update</button>
+										</div>
+									</div>
+							</div>
+						</form>
 				
+						</div>
 			</div><!-- /.row -->
 			
 			

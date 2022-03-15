@@ -1,7 +1,7 @@
 
 <?php
 session_start();
-include('../include/config.php');
+include('include/config.php');
 if(strlen($_SESSION['alogin'])==0)
 	{	
 header('location:index.php');
@@ -18,12 +18,8 @@ if(isset($_POST['submit']))
 	$lname=$_POST['lastname'];
 	$gcash_name=$_POST['gcash_name'];
 	$gcash_number=$_POST['gcash_number'];
-	$productimage1=$_FILES["productimage1"]["name"];
 	
-
-	move_uploaded_file($_FILES["productimage1"]["tmp_name"],"productimages/".$_FILES["productimage1"]["name"]);
-	
-$sql=mysqli_query($con,"update admin set firstname='$fname',middlename='$mname',lastname='$lname',gcash_name='$gcash_name',gcash_number='$gcash_number',QRimage='$productimage1',updationDate='$currentTime' where id=1");
+$sql=mysqli_query($con,"update admin set firstname='$fname',middlename='$mname',lastname='$lname',gcash_name='$gcash_name',gcash_number='$gcash_number',updationDate='$currentTime' where id=1");
 $_SESSION['msg']="Profile Updated !!";
 
 }
