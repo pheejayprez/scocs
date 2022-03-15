@@ -195,7 +195,7 @@ if(!empty($_SESSION['cart'])){
 	?>
 
 				<tr>
-					<td class="remove-item"><input type="checkbox" name="remove_code[]" value="<?php echo htmlentities($row['id']);?>" /></td>
+					
 					<td class="cart-image">
 					<a href="product-details.php?pid=<?php echo htmlentities($pd=$row['id']);?>">
 						    <img src="admin/productimages/<?php echo $row['id'];?>/<?php echo $row['productImage1'];?>" alt="productimg" style="width:100px;height:100px">
@@ -215,6 +215,7 @@ if(!empty($_SESSION['cart'])){
 <td class="cart-product-sub-total"><span class="cart-sub-total-price"><?php echo "Shipping Fee: <br>"."₱"." ".$row['shippingCharge']; ?>.00</span></td>
 
 					<td class="cart-product-grand-total"><span class="cart-grand-total-price"><?php echo "₱"." ".($_SESSION['cart'][$row['id']]['quantity']*$row['productPrice']+$row['shippingCharge']); ?>.00</span></td>
+					<td class="remove-item"><input type="checkbox" name="remove_code[]" value="<?php echo htmlentities($row['id']);?>" /></td>
 				</tr>
 
 				<?php } }
