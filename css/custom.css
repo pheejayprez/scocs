@@ -132,7 +132,7 @@ li > a:only-child:after { content: ''; }
 .home-logo {
 animation: home-logo 10s ease infinite;
 width:48%;
-margin-top: 10px;
+margin-top: 20px;
 }
 .home-subtitle{
 	font-family:Brush Script MT;
